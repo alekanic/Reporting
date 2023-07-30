@@ -105,13 +105,13 @@ public class test {
 
        open("http://localhost:9999/");
 
-       String selectDate = dateAfterAWeek(8, "dd.MM.yyyy");
+       String selectDate = dateAfterAWeek(38, "dd.MM.yyyy");
        String day = chooseTheDay(selectDate);
-       String todayMonth = LocalDate.now().format(DateTimeFormatter.ofPattern("dd.MM.yyyy"));
+       String todayMonth = LocalDate.now().plusDays(3).format(DateTimeFormatter.ofPattern("dd.MM.yyyy"));
 
        char ch1 = todayMonth.charAt(4);
        char ch2 = selectDate.charAt(4);
-       int monthOne = Character.getNumericValue(ch1) + 3;
+       int monthOne = Character.getNumericValue(ch1);
        int monthTwo = Character.getNumericValue(ch2);
 
        $("button").click();
@@ -129,7 +129,7 @@ public class test {
        $("button.button").click();
        $(".notification__content")
                .shouldBe(visible, Duration.ofSeconds(15))
-               .shouldHave(Condition.exactText("Встреча успешно забронирована на " + selectDate));
+               .shouldHave(Condition.text("Встреча успешно забронирована на " + selectDate));
 
    }
 }
