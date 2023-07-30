@@ -92,7 +92,7 @@ public class test {
 
    void testWithSelectTheDataFromTheCalendar() {
 
-       String selectDate = dateAfterAWeek(8, "dd/MM/yyyy");
+       String selectDate = dateAfterAWeek(8, "dd.MM.yyyy");
        String day = chooseTheDay(selectDate);
 
        open("http://localhost:9999/");
