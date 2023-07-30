@@ -107,11 +107,11 @@ public class test {
 
        String selectDate = dateAfterAWeek(8, "dd.MM.yyyy");
        String day = chooseTheDay(selectDate);
-       String month = LocalDate.now().format(DateTimeFormatter.ofPattern("dd.MM.yyyy"));
+       String todayMonth = LocalDate.now().format(DateTimeFormatter.ofPattern("dd.MM.yyyy"));
 
-       char ch1 = month.charAt(4);
+       char ch1 = todayMonth.charAt(4);
        char ch2 = selectDate.charAt(4);
-       int monthOne = Character.getNumericValue(ch1);
+       int monthOne = Character.getNumericValue(ch1) + 3;
        int monthTwo = Character.getNumericValue(ch2);
 
        $("button").click();
@@ -119,7 +119,6 @@ public class test {
        if (monthOne < monthTwo) {
            $(By.xpath("/html/body/div[2]/div/div/div/div/div/div/div[4]")).click();
        }
-
 
        $$(".calendar__day").filterBy(text(day)).findBy(exactText(day)).click();
 
