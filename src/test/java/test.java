@@ -23,13 +23,6 @@ public class test {
         return LocalDate.now().plusDays(addDays).format(DateTimeFormatter.ofPattern(pattern));
     }
 
-    private String dateAfterAWeek(int addDays, String pattern) {
-
-        String tnt = LocalDate.now().plusDays(addDays).format(DateTimeFormatter.ofPattern(pattern));
-        return tnt;
-
-    }
-
     private String chooseTheDay(String tnt) {
 
         char tntOne = tnt.charAt(0);
@@ -43,17 +36,6 @@ public class test {
         } else {
             return (String.valueOf(numOne) + String.valueOf(numTwo));
         }
-
-    }
-
-    private void chooseTheMonth(String month_1, String month_2) {
-
-        char ch1 = month_1.charAt(3);
-        char ch2 = month_2.charAt(3);
-        int monthOne = Character.getNumericValue(ch1);
-        int monthTwo = Character.getNumericValue(ch2);
-
-        boolean differentMonth = (monthOne != monthTwo);
 
     }
 
@@ -105,7 +87,7 @@ public class test {
 
        open("http://localhost:9999/");
 
-       String selectDate = dateAfterAWeek(38, "dd.MM.yyyy");
+       String selectDate = generateDate(38, "dd.MM.yyyy");
        String day = chooseTheDay(selectDate);
        String todayMonth = LocalDate.now().plusDays(3).format(DateTimeFormatter.ofPattern("dd.MM.yyyy"));
 
@@ -117,7 +99,8 @@ public class test {
        $("button").click();
 
        if (monthOne < monthTwo) {
-           $(By.xpath("/html/body/div[2]/div/div/div/div/div/div/div[4]")).click();
+           $("[data-step ='1']").click();
+           //$(By.xpath("/html/body/div[2]/div/div/div/div/div/div/div[4]")).click();
        }
 
        $$(".calendar__day").filterBy(text(day)).findBy(exactText(day)).click();
