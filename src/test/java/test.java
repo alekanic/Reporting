@@ -23,22 +23,6 @@ public class test {
         return LocalDate.now().plusDays(addDays).format(DateTimeFormatter.ofPattern(pattern));
     }
 
-    private String chooseTheDay(String tnt) {
-
-        char tntOne = tnt.charAt(0);
-        char tntTwo = tnt.charAt(1);
-
-        int numOne = Character.getNumericValue(tntOne);
-        int numTwo = Character.getNumericValue(tntTwo);
-
-        if (numOne == 0) {
-            return String.valueOf(numTwo);
-        } else {
-            return (String.valueOf(numOne) + String.valueOf(numTwo));
-        }
-
-    }
-
     @Test
 
     void positiveTest() {
@@ -87,12 +71,11 @@ public class test {
 
        open("http://localhost:9999/");
 
-       String selectDate = generateDate(38, "dd.MM.yyyy");
-       String day = chooseTheDay(selectDate);
+       String selectDate = generateDate(38, "d");
        String todayMonth = LocalDate.now().plusDays(3).format(DateTimeFormatter.ofPattern("dd.MM.yyyy"));
 
        char ch1 = todayMonth.charAt(4);
-       char ch2 = selectDate.charAt(4);
+       char ch2 = selectDate.charAt(0);
        int monthOne = Character.getNumericValue(ch1);
        int monthTwo = Character.getNumericValue(ch2);
 
@@ -100,10 +83,9 @@ public class test {
 
        if (monthOne < monthTwo) {
            $("[data-step ='1']").click();
-           //$(By.xpath("/html/body/div[2]/div/div/div/div/div/div/div[4]")).click();
        }
 
-       $$(".calendar__day").filterBy(text(day)).findBy(exactText(day)).click();
+       $$(".calendar__day").filterBy(text(selectDate)).findBy(exactText(selectDate)).click();
 
        $("[data-test-id=city] input").setValue("Рязань");
        $("[data-test-id=name] input").setValue("Василиса Ильинична");
