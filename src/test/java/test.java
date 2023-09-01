@@ -1,6 +1,11 @@
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.Configuration;
+import com.codeborne.selenide.logevents.SelenideLogger;
 import com.codeborne.selenide.selector.ByText;
+import io.qameta.allure.selenide.AllureSelenide;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
@@ -18,6 +23,16 @@ import static com.codeborne.selenide.Selenide.*;
 
 
 public class test {
+
+    @BeforeAll
+    static void setUpAll() {
+        SelenideLogger.addListener("allure", new AllureSelenide());
+    }
+
+    @AfterAll
+    static void tearDownAll() {
+        SelenideLogger.removeListener("allure");
+    }
 
     private String generateDate(int addDays, String pattern) {
         return LocalDate.now().plusDays(addDays).format(DateTimeFormatter.ofPattern(pattern));
@@ -71,7 +86,8 @@ public class test {
 
        open("http://localhost:9999/");
 
-       String selectDate = generateDate(38, "d");
+       String selectDate = generateDate(20, "d");
+       String dateInAnotherFormat = generateDate(20, "dd.MM.yyyy");
        String todayMonth = LocalDate.now().plusDays(3).format(DateTimeFormatter.ofPattern("dd.MM.yyyy"));
 
        char ch1 = todayMonth.charAt(4);
@@ -94,7 +110,7 @@ public class test {
        $("button.button").click();
        $(".notification__content")
                .shouldBe(visible, Duration.ofSeconds(15))
-               .shouldHave(Condition.text("Встреча успешно забронирована на " + selectDate));
+               .shouldHave(Condition.text("Встреча успешно забронирована на " + dateInAnotherFormat));
 
    }
 }
